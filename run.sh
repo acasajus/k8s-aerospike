@@ -15,5 +15,5 @@ Template as_file_size_gb "$AS_FILE_SIZE_GB" 1 $CONF
 
 /kubectl proxy &
 
-/bin/bash
+asd --foreground
 
