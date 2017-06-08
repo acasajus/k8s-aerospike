@@ -10,7 +10,7 @@ kubectl/kubectl:
 all: push
 
 build: kubectl/kubectl
-	docker build -t acasajus/k8s-aerospike .
+	docker build -t acasajus/k8s-aerospike:${GITVERSION} .
 
 push: build
 	docker push acasajus/k8s-aerospike:${GITVERSION}

@@ -2,7 +2,7 @@ FROM aerospike:3.12.1
 
 MAINTAINER Adrià Casajús <acasajus@infern.us>
 
-ADD kubectl/kubectl kubectl
+ADD kubectl/kubectl /kubectl
 
 ENV DOCKERIZE_VERSION v0.4.0
 
@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y wget \
 COPY run.sh /run.sh
 COPY aerospike.conf /etc/aerospike/aerospike.conf
 
-
 RUN chmod +x /run.sh
+RUN chmod +x /kubectl
 
 ENTRYPOINT []
 
