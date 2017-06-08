@@ -34,5 +34,6 @@ AddPeers() {
 	done
 }
 
+/etc/init.d/amc start
 AddPeers & asd --foreground
 
