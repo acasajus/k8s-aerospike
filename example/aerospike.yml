@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aerospike-svc
+  namespace: db
+  labels:
+    app: aerospike
+spec:
+  ports:
+  - port: 3000
+    name: db
+  clusterIP: None
+  selector:
+    app: aerospike
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: aerospike
+  namespace: db
+spec:
+  serviceName: "aerospike"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: aerospike
+    spec:
+      containers:
+      - name: aerospike
+        image: acasajus/k8s-aerospike:3075b60d
+        ports:
+        - containerPort: 3000
+          name: db
+        volumeMounts:
+        - name: aerospike-data
+          mountPath: /opt/aerospike/data
+        env:
+        - name: AS_NAMESPACE
+          value: "testnamespace"
+        - name: AS_MEMORY_SIZE_GB
+          value: "1"
+        - name: AS_FILE_SIZE_GB
+          value: "5"
+        - name: AS_DEFAULT_TTL_DAYS
+          value: "0"
+        - name: AS_SERVICE
+          value: "aerospike-svc.db"
+      volumes:
+      - name: aerospike-data
+        hostPath:
+          path: /local/pods/aerospike
+
